@@ -1,0 +1,37 @@
+.widget_box{
+  border-style: solid;
+  padding: 10px;
+  min-width:320px;
+  min-height: 100px;
+}
+
+.logo{
+  width: 100px;
+  float: right;
+}
+
+.refreshInput{
+  width: 50px;
+}
+
+.kaspa{
+  color: black;
+  background: rgba(58,221,190,0.53);
+}
+
+.bitcoin{
+  color: #f2a900;
+  background: #4d4d4e;
+}
+
+.ergo{
+  color: black;
+  background: rgb(255 110 20);
+}
+
+.zilliqa{
+ color: #4DBBBA;
+ background: #0A7581;
+}
+
+
