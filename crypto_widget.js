@@ -1,8 +1,9 @@
 
 async function getCryptoPrice(endpoint,cryptoId) {
   try {
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, { mode: 'cors' });
     const data = await response.json();
+
     let price = 0.0;
     
     try {
@@ -259,9 +260,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const cryptoWidgetsContainer = document.getElementById('cryptoWidgetsContainer');
 
   try {
-    // Import the cryptocurrency data from cryptocurrencies.js
     for (const crypto of cryptocurrencies) {
-      console.log('cur: ' + crypto.name);
       createCryptoWidget(crypto);
     }
   } catch (error) {
