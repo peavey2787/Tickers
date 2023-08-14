@@ -63,7 +63,7 @@ function createCryptoWidget(cryptoConfig) {
 
   const intervalCountDownLabel = document.createElement('span');
   intervalCountDownLabel.id = `count_${cryptoConfig.name}`;
-  intervalCountDownLabel.textContent = '60';
+  intervalCountDownLabel.textContent = '90';
   cryptoContainer.appendChild(intervalCountDownLabel);
 
   cryptoContainer.appendChild(document.createElement('div'));
@@ -127,7 +127,7 @@ function createCryptoWidget(cryptoConfig) {
   const refreshIntervalInput = document.createElement('input');
   refreshIntervalInput.setAttribute('id', `refresh_${cryptoConfig.name}`);
   refreshIntervalInput.setAttribute('type', 'number');
-  refreshIntervalInput.setAttribute('value', '60');
+  refreshIntervalInput.setAttribute('value', '90');
   refreshIntervalInput.classList.add('refreshInput');
   showMoreDiv.appendChild(refreshIntervalInput);
 
@@ -188,7 +188,9 @@ function createCryptoWidget(cryptoConfig) {
 	}
 
       } else {
-        updateStatus.textContent = ' Error ';
+	// Reload the current page
+	location.reload();
+        //updateStatus.textContent = ' Error ';
       }
     } catch (error) {
       console.error('An error occurred:', error);
