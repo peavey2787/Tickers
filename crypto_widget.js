@@ -188,7 +188,9 @@ function createCryptoWidget(cryptoConfig) {
 
     // Get network hashrate
     const netHash = await getNetworkHashrate(cryptoConfig);
-    netHashrate.textContent = netHash;
+    if (!netHash.startsWith("0")) {
+        netHashrate.textContent = netHash;
+    }
 
     // Get price
     try {
