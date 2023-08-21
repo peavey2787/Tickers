@@ -11,18 +11,21 @@ const cryptocurrencies = [
     name: 'Bitcoin',
     symbol: 'BTC',
     endpoint: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+    hashEndpoint: 'https://api.minerstat.com/v2/coins?list=BTC',
     baseCurrency: 'USD'
   },
   {
     name: 'Ergo',
     symbol: 'Erg',
     endpoint: 'https://api.coingecko.com/api/v3/simple/price?ids=ergo&vs_currencies=usd',
+    hashEndpoint: 'https://api.minerstat.com/v2/coins?list=ERG',
     baseCurrency: 'USD'
   },
   {
     name: 'Zilliqa',
     symbol: 'ZIL',
     endpoint: 'https://api.coingecko.com/api/v3/simple/price?ids=zilliqa&vs_currencies=usd',
+    hashEndpoint: 'https://api.minerstat.com/v2/coins?list=ZIL',
     baseCurrency: 'USD'
   },
   {

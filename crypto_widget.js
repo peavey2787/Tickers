@@ -28,15 +28,44 @@ async function getNetworkHashrate(cryptoConfig) {
   if(cryptoConfig.hashEndpoint) {
     try {
       const response = await fetch(cryptoConfig.hashEndpoint);
+
       const data = await response.json();
-      hash = data.hashrate;
+
+      if(data.hashrate) {
+
+	hash = (data.hashrate / 1000).toFixed(2) + " PH/s";
+
+      } else if(data[0].network_hashrate) {
+
+        hash = data[0].network_hashrate;
+	hash = convertToMiningUnit(hash);
+
+      } else {
+
+        //console.log('got network hashrate');
+	//console.log('data: ' + data);
+      }
+
     } catch (error) {
-      console.error('Error fetching cryptocurrency price:', error);
+        console.error('Error fetching cryptocurrency price:', error);
       return hash;
     }
   } 
-  
+
+  	
   return hash;
+}
+
+function convertToMiningUnit(number) {
+  const units = ['H/s', 'KH/s', 'MH/s', 'GH/s', 'TH/s', 'PH/s', 'EH/s'];
+  let unitIndex = 0;
+
+  while (number >= 1000 && unitIndex < units.length - 1) {
+    number /= 1000;
+    unitIndex++;
+  }
+
+  return number.toFixed(2) + ' ' + units[unitIndex];
 }
 
 function createCryptoWidget(cryptoConfig) {
@@ -159,7 +188,7 @@ function createCryptoWidget(cryptoConfig) {
 
     // Get network hashrate
     const netHash = await getNetworkHashrate(cryptoConfig);
-    netHashrate.textContent = netHash.toFixed(3);
+    netHashrate.textContent = netHash;
 
     // Get price
     try {
