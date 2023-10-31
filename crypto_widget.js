@@ -1,10 +1,11 @@
 
 async function getCryptoPrice(endpoint,cryptoId) {
+
+  let price = 0.0;
+
   try {
     const response = await fetch(endpoint, { mode: 'cors' });
     const data = await response.json();
-
-    let price = 0.0;
     
     try {
       price = data[`${cryptoId.toLowerCase()}`].usd;
@@ -12,13 +13,12 @@ async function getCryptoPrice(endpoint,cryptoId) {
     catch {
       price = data.price;
     }
-    
-    return price;
 
   } catch (error) {
-    console.error('Error fetching cryptocurrency price:', error);
-    return null;
+    console.error('Error fetching cryptocurrency price:', error);    
   }
+
+  return price;
 }
 
 async function getNetworkHashrate(cryptoConfig) {
@@ -33,25 +33,20 @@ async function getNetworkHashrate(cryptoConfig) {
 
       if(data.hashrate) {
 
-	hash = (data.hashrate / 1000).toFixed(2) + " PH/s";
+	      hash = (data.hashrate / 1000).toFixed(2) + " PH/s";
 
       } else if(data[0].network_hashrate) {
 
         hash = data[0].network_hashrate;
-	hash = convertToMiningUnit(hash);
+	      hash = convertToMiningUnit(hash);
 
-      } else {
-
-        //console.log('got network hashrate');
-	//console.log('data: ' + data);
-      }
+      } 
 
     } catch (error) {
-        console.error('Error fetching cryptocurrency price:', error);
+        console.error('Error fetching cryptocurrency network hashrate:', error);
       return hash;
     }
   } 
-
   	
   return hash;
 }
@@ -112,7 +107,7 @@ function createCryptoWidget(cryptoConfig) {
   showMoreButton.id = `showMore_${cryptoConfig.name}`;
   showMoreButton.className = 'btn btn-primary';
   showMoreButton.type = 'button';
-  showMoreButton.textContent = 'Show More';
+  showMoreButton.textContent = 'Toggle';
   cryptoContainer.appendChild(showMoreButton);
 
   const showMoreDiv = document.createElement('div');
@@ -188,9 +183,7 @@ function createCryptoWidget(cryptoConfig) {
 
     // Get network hashrate
     const netHash = await getNetworkHashrate(cryptoConfig);
-    if (!netHash.startsWith("0")) {
-        netHashrate.textContent = netHash;
-    }
+    netHashrate.textContent = netHash;
 
     // Get price
     try {
@@ -212,15 +205,15 @@ function createCryptoWidget(cryptoConfig) {
           cryptoToUsdInput.value = cryptoEquivalent.toFixed(8);
         }
 
-	if(update_status) {
+        if(update_status) {
           updateStatus.textContent = ' updated ';
-	  await delay(1000);
+          await delay(1000);
           updateStatus.textContent = ' refresh in ';
-	}
+        }
 
       } else {
-	// Reload the current page
-	location.reload();
+        // Reload the current page
+        location.reload();
         //updateStatus.textContent = ' Error ';
       }
     } catch (error) {
